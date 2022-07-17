@@ -1,4 +1,4 @@
-def app(env, start_response):
-    params = [bytes(i + '\n', 'ascii') for i in env['QUERY_STRING'].split('&')]
+def app(environ, start_response):
     start_response('200 OK', [('Content-Type', 'text/plain')])
-    return params
+    return [bytes('\r\n'.join(environ['QUERY_STRING'].split('&')),
+                  encoding="utf8")]
